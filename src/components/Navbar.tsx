@@ -1,12 +1,13 @@
 'use client';
 
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { FaLocationDot } from "react-icons/fa6";
 import { Menu } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import AuthModal from "./AuthModal";
+import Link from "next/link";
 
 const Navbar = () => {
   const [authOpen, setAuthOpen] = useState(false);
@@ -14,7 +15,11 @@ const Navbar = () => {
   return (
     <div className="max-w-7xl mx-auto h-16 px-4 flex items-center justify-between border-b">
       {/* Logo */}
-      <div className="text-3xl font-extrabold text-rose-500 w-[20%]">Zomato</div>
+      <div className="text-3xl font-extrabold text-rose-500 w-[20%]">
+        <Link href={"/"}>
+          Zomato
+        </Link>
+      </div>
 
       {/* Large screen (md and above) Search + Location + Auth */}
       <div className="hidden lg:flex items-center  gap-4 w-[60%] border-1 shadow-md rounded-2xl p-1">
@@ -27,13 +32,13 @@ const Navbar = () => {
         <div className="flex-grow">
           <Input className="border-0" placeholder="Search for restaurant, cuisine or a dish" />
         </div>
-     
+
       </div>
       <div className=" gap-2 hidden lg:flex items-center">
-      <Button onClick={() => { setAuthType("login"); setAuthOpen(true); }}>Login</Button>
-      <Button onClick={() => { setAuthType("signup"); setAuthOpen(true); }}>Sign Up</Button>
-        </div>
-        <AuthModal
+        <Button onClick={() => { setAuthType("login"); setAuthOpen(true); }}>Login</Button>
+        <Button onClick={() => { setAuthType("signup"); setAuthOpen(true); }}>Sign Up</Button>
+      </div>
+      <AuthModal
         open={authOpen}
         type={authType}
         onClose={() => setAuthOpen(false)}

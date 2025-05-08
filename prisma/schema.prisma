@@ -14,3 +14,60 @@ model User {
   password  String
   createdAt DateTime @default(now())
 }
+
+model Collection {
+  id       String  @id @default(cuid())
+  name     String
+  slug     String  @unique
+  imageUrl String?
+  dishes   Dish[]
+}
+
+model Restaurant {
+  id          String  @id @default(cuid())
+  name        String
+  address     String
+  imageUrl    String?
+  phoneNumber String?
+  openTime    String? // "10am"
+  closeTime   String? // "11pm"
+  ratings     Float?
+  ratingCount Int?
+  dishes      Dish[]
+  cuisines  Cuisine[]  @relation("RestaurantCuisines")
+   menuCategories MenuCategory[]
+}
+
+model MenuCategory {
+  id           String       @id @default(cuid())
+  name         String
+  count        Int
+  restaurant   Restaurant   @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  items        MenuItem[]
+}
+
+model MenuItem {
+  id             String       @id @default(cuid())
+  name           String
+  price          Float
+  tag            String?
+  category       MenuCategory @relation(fields: [categoryId], references: [id])
+  categoryId     String
+}
+model Dish {
+  id           String     @id @default(cuid())
+  name         String
+  price        Int
+  imageUrl     String?
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId String
+}
+
+model Cuisine {
+  id           String       @id @default(cuid())
+  name         String       @unique
+  restaurants  Restaurant[] @relation("RestaurantCuisines")
+}
