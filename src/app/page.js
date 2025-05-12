@@ -1,19 +1,21 @@
 
-import RestaurantList from "@/components/AllRestaurants";
+import RestaurantList from "@/components/RestaurantList";
 import { CollectionSection } from "@/components/CollectionSection";
 import FilterPills from "@/components/FilterPills";
+import ExploreOptions from "@/components/ExploreOptions";
 
 
 export default function Home() {
   return (
-   <div>
-     
-     <div className="max-w-7xl mx-auto">
-     <CollectionSection/>
-     <FilterPills/>
-     <RestaurantList />
-     </div>
-    
-   </div>
+    <div>
+
+      <div className="max-w-7xl mx-auto">
+        <CollectionSection />
+        <FilterPills />
+        <RestaurantList />
+        <ExploreOptions />
+      </div>
+
+    </div>
   );
 }

@@ -41,6 +41,9 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+
+
+
 :root {
   --radius: 0.625rem;
   --card: oklch(1 0 0);

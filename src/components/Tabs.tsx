@@ -1,7 +1,7 @@
+// components/Tabs.jsx
 'use client';
 
 import Image from "next/image";
-import { useState } from "react";
 
 const TabsList = [
   {
@@ -11,15 +11,10 @@ const TabsList = [
   {
     tabName: "Delivery",
     img: "/delivery.png",
-  },
-  {
-    tabName: "OfferClose %",
-    img: "/delivery.png",
-  },
+  }
 ];
 
-const Tabs = () => {
-  const [activeTab, setActiveTab] = useState("Dining Out");
+const Tabs = ({ activeTab, setActiveTab }) => {
 
   return (
     <div>

@@ -29,9 +29,11 @@ export const AuthForm = ({ type }: AuthFormProps) => {
         email: form.email,
         password: form.password,
       });
+      console.log("Responses",res)
       if (res?.ok) {
         router.refresh();
         router.push("/"); 
+        toast.success("Log in successfully !!! ");
       } else {
 
         alert("Login failed");

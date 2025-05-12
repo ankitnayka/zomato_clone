@@ -7,13 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model User {
+//   id        String   @id @default(cuid())
+//   name      String?
+//   email     String   @unique
+//   password  String
+//   createdAt DateTime @default(now())
+// }
+
+
 model User {
   id        String   @id @default(cuid())
   name      String?
   email     String   @unique
   password  String
+  // role      Role     @default(USER)
+  role      String   @default("USER") // <-- Add this line
   createdAt DateTime @default(now())
 }
+
+enum Role {
+  ADMIN
+  USER
+}
+
 
 model Collection {
   id       String  @id @default(cuid())
@@ -24,37 +41,38 @@ model Collection {
 }
 
 model Restaurant {
-  id          String  @id @default(cuid())
-  name        String
-  address     String
-  imageUrl    String?
-  phoneNumber String?
-  openTime    String? // "10am"
-  closeTime   String? // "11pm"
-  ratings     Float?
-  ratingCount Int?
-  dishes      Dish[]
-  cuisines  Cuisine[]  @relation("RestaurantCuisines")
-   menuCategories MenuCategory[]
+  id             String         @id @default(cuid())
+  name           String
+  address        String
+  imageUrl       String?
+  phoneNumber    String?
+  openTime       String? 
+  closeTime      String? 
+  ratings        Float?
+  ratingCount    Int?
+  dishes         Dish[]
+  cuisines       Cuisine[]      @relation("RestaurantCuisines")
+  menuCategories MenuCategory[]
 }
 
 model MenuCategory {
-  id           String       @id @default(cuid())
+  id           String     @id @default(cuid())
   name         String
   count        Int
-  restaurant   Restaurant   @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId String
   items        MenuItem[]
 }
 
 model MenuItem {
-  id             String       @id @default(cuid())
-  name           String
-  price          Float
-  tag            String?
-  category       MenuCategory @relation(fields: [categoryId], references: [id])
-  categoryId     String
+  id         String       @id @default(cuid())
+  name       String
+  price      Float
+  tag        String?
+  category   MenuCategory @relation(fields: [categoryId], references: [id])
+  categoryId String
 }
+
 model Dish {
   id           String     @id @default(cuid())
   name         String
@@ -67,7 +85,7 @@ model Dish {
 }
 
 model Cuisine {
-  id           String       @id @default(cuid())
-  name         String       @unique
-  restaurants  Restaurant[] @relation("RestaurantCuisines")
+  id          String       @id @default(cuid())
+  name        String       @unique
+  restaurants Restaurant[] @relation("RestaurantCuisines")
 }

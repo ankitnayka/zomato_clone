@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CollectionCard } from "./CollectionCard";
-import prisma from "@/lib/prismadb";
+import prisma from "../../lib/prismadb";
 
 
 
@@ -29,12 +29,10 @@ export async function CollectionSection() {
 
       <div className="flex space-x-4 overflow-x-auto scrollbar-hide">
         {collections.map((col, idx) => (
-          // <CollectionCard title={col.title} image={col.image} places={col.places} />
           <Link href={`/collection/${col.slug}`} key={col.slug}>
             <CollectionCard
               title={col.slug}
               image={col.imageUrl}
-            // places={col.}
             />
           </Link>
         ))}

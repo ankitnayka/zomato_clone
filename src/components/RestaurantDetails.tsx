@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import OverviewSection from "./OverView";
 import OrderOnline from "./OrderOnline";
+import { CollectionCard } from "./CollectionCard";
+import dynamic from "next/dynamic";
 
 // const dummyCuisines = [
 //   "North Indian",
@@ -24,9 +26,9 @@ import OrderOnline from "./OrderOnline";
 export default function RestaurantDetails({ dish, restaurant }: any) {
   const [activeTab, setActiveTab] = useState("Overview");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-console.log("cusions...",restaurant)
   return (
     <div className="max-w-7xl mx-auto p-6">
+      
       {dish &&(
         <h1 className="text-3xl font-bold mb-1">{dish.name}</h1>
       )
@@ -35,8 +37,12 @@ console.log("cusions...",restaurant)
       <p className="text-sm text-gray-500">{restaurant.address}</p>
 
       <div className="text-sm text-gray-600 my-2 flex gap-6 flex-wrap">
+      
+      {dish&& (
         <span>₹{dish?.price} for two</span>
-        <span>📞 +91XXXXXXXXXX</span>
+      )}  
+      
+        <span>📞 {restaurant?.phoneNumber}</span>
         <a
           href="https://wa.me/919876543210"
           target="_blank"
@@ -45,17 +51,23 @@ console.log("cusions...",restaurant)
         >
           💬 WhatsApp
         </a>
-        <span>🕒 10am – 11pm</span>
+        <span>🕒 opne Time : {restaurant?.openTime}</span>
       </div>
 
+{
+  dish && (
+
+ 
       <Image
         src={dish?.imageUrl || "/placeholder.jpg"}
         alt={dish?.name}
         width={700}
         height={400}
         className="rounded-xl my-4"
-      />
-
+        />
+        
+ )
+}
       {/* Tabs */}
       <div className="border-b mb-4">
         {["Overview", "Order Online", "Reviews", "Photos", "Menu"].map((tab) => (
@@ -143,3 +155,5 @@ console.log("cusions...",restaurant)
     </div>
   );
 }
+
+
