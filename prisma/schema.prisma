@@ -44,8 +44,8 @@ model Restaurant {
   id             String         @id @default(cuid())
   name           String
   address        String
-  imageUrl       String?
-  phoneNumber    String?
+  imageUrl       String? 
+  phoneNumber    String? 
   openTime       String? 
   closeTime      String? 
   ratings        Float?
@@ -79,7 +79,7 @@ model Dish {
   price        Int
   imageUrl     String?
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
-  restaurantId String
+  restaurantId String 
   collection   Collection @relation(fields: [collectionId], references: [id])
   collectionId String
 }

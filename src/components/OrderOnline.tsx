@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { MenuCategory } from "../../lib/types";
+import type { MenuCategory } from "../lib/types";
 
 interface OrderOnlineProps {
   menuCategories: MenuCategory[];

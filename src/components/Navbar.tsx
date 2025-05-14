@@ -17,15 +17,27 @@ import {
 import { Label } from "./ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 const Navbar = () => {
   const [authOpen, setAuthOpen] = useState(false);
   const [authType, setAuthType] = useState<"login" | "signup">("login");
   const { data: session, status } = useSession();
+  const { setTheme } = useTheme()
 
   if (status === "loading") return <div>Loading....</div>;
 
   const isAuthenticated = !!session?.user;
-  
+
   return (
     <div className="max-w-7xl mx-auto h-16 px-4 flex items-center justify-between border-b">
       {/* Logo */}
@@ -45,7 +57,27 @@ const Navbar = () => {
           <Input className="border-0" placeholder="Search for restaurant, cuisine or a dish" />
         </div>
       </div>
-
+      {/* Dark/light mode  */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="icon">
+            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => setTheme("light")}>
+            Light
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("dark")}>
+            Dark
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("system")}>
+            System
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       {/* Right-side Auth */}
       <div className="gap-2 hidden lg:flex items-center">
         {!isAuthenticated ? (

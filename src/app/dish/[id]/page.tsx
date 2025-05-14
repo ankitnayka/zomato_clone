@@ -1,4 +1,4 @@
-import  prisma  from "../../../../lib/prismadb";
+import  prisma  from "../../../lib/prismadb";
 import RestaurantDetails from "@/components/RestaurantDetails";
 
 export default async function DishPage({ params }: { params: { id: string } }) {

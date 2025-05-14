@@ -8,6 +8,7 @@ async function main() {
       name: "Ankit Kumar",
       email: "ankit@example.com",
       password: "hashed-password",
+      
     },
   });
 

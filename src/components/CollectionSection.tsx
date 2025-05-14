@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CollectionCard } from "./CollectionCard";
-import prisma from "../../lib/prismadb";
+import prisma from "../lib/prismadb";
 
 
 

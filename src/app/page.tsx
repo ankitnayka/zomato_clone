@@ -13,7 +13,7 @@ export default function Home() {
         <CollectionSection />
         <FilterPills />
         <RestaurantList />
-        <ExploreOptions />
+        {/* <ExploreOptions data={null} /> */}
       </div>
 
     </div>
