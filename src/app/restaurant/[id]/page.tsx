@@ -5,11 +5,7 @@ export default async function RestaurantPage({ params }: { params: { id: string 
   const restaurant = await prisma.restaurant.findUnique({
     where: { id: params.id },
     include: {
-      menuCategories: {
-        include: {
-          items: true,
-        },
-      },
+      menuCategories: true,
       dishes: true,
     },
   });
@@ -18,3 +14,6 @@ export default async function RestaurantPage({ params }: { params: { id: string 
 
   return <RestaurantDetails restaurant={restaurant} />;
 }
+
+
+

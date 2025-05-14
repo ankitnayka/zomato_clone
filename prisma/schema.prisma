@@ -7,22 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id        String   @id @default(cuid())
-//   name      String?
-//   email     String   @unique
-//   password  String
-//   createdAt DateTime @default(now())
-// }
-
-
 model User {
   id        String   @id @default(cuid())
   name      String?
   email     String   @unique
   password  String
-  // role      Role     @default(USER)
-  role      String   @default("USER") // <-- Add this line
+  role      String   @default("USER") // Role: ADMIN or USER
   createdAt DateTime @default(now())
 }
 
@@ -30,7 +20,6 @@ enum Role {
   ADMIN
   USER
 }
-
 
 model Collection {
   id       String  @id @default(cuid())
@@ -61,27 +50,23 @@ model MenuCategory {
   count        Int
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId String
-  items        MenuItem[]
-}
-
-model MenuItem {
-  id         String       @id @default(cuid())
-  name       String
-  price      Float
-  tag        String?
-  category   MenuCategory @relation(fields: [categoryId], references: [id])
-  categoryId String
+  dishes       Dish[]
 }
 
 model Dish {
-  id           String     @id @default(cuid())
-  name         String
-  price        Int
-  imageUrl     String?
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
-  restaurantId String 
-  collection   Collection @relation(fields: [collectionId], references: [id])
-  collectionId String
+  id             String       @id @default(cuid())
+  name           String
+  price          Int
+  imageUrl       String?
+
+  restaurant     Restaurant   @relation(fields: [restaurantId], references: [id])
+  restaurantId   String 
+
+  collection     Collection   @relation(fields: [collectionId], references: [id])
+  collectionId   String
+
+  menuCategory   MenuCategory @relation(fields: [menuCategoryId], references: [id])
+  menuCategoryId String
 }
 
 model Cuisine {
@@ -89,3 +74,192 @@ model Cuisine {
   name        String       @unique
   restaurants Restaurant[] @relation("RestaurantCuisines")
 }
+
+
+// old schema 14-may 
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+// model User {
+//   id        String   @id @default(cuid())
+//   name      String?
+//   email     String   @unique
+//   password  String
+//   role      String   @default("USER") // Role: ADMIN or USER Ankit Arvindbhai Nayka 
+//   createdAt DateTime @default(now())
+// }
+
+// enum Role {
+//   ADMIN
+//   USER
+// }
+
+// model Collection {
+//   id       String  @id @default(cuid())
+//   name     String
+//   slug     String  @unique
+//   imageUrl String?
+//   dishes   Dish[]
+// }
+
+// model Restaurant {
+//   id             String         @id @default(cuid())
+//   name           String
+//   address        String
+//   imageUrl       String? 
+//   phoneNumber    String? 
+//   openTime       String? 
+//   closeTime      String? 
+//   ratings        Float?
+//   ratingCount    Int?
+//   dishes         Dish[]
+//   cuisines       Cuisine[]      @relation("RestaurantCuisines")
+//   menuCategories MenuCategory[]
+// }
+
+// model MenuCategory {
+//   id           String     @id @default(cuid())
+//   name         String
+//   count        Int
+//   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+//   restaurantId String
+//   items        MenuItem[]
+//   dishes       Dish[]
+// }
+
+// model MenuItem {
+//   id         String       @id @default(cuid())
+//   name       String
+//   price      Float
+//   tag        String?
+//   category   MenuCategory @relation(fields: [categoryId], references: [id])
+//   categoryId String
+
+//   // New relationship to Dish
+//   dish       Dish?        @relation(fields: [dishId], references: [id])
+//   dishId     String?      @unique
+// }
+
+// model Dish {
+//   id             String         @id @default(cuid())
+//   name           String
+//   price          Int
+//   imageUrl       String?
+
+//   restaurant     Restaurant     @relation(fields: [restaurantId], references: [id])
+//   restaurantId   String 
+
+//   collection     Collection     @relation(fields: [collectionId], references: [id])
+//   collectionId   String
+
+//   menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id])
+//   menuCategoryId String
+
+//   menuItem       MenuItem?
+// }
+
+// model Cuisine {
+//   id          String       @id @default(cuid())
+//   name        String       @unique
+//   restaurants Restaurant[] @relation("RestaurantCuisines")
+// }
+
+
+
+
+
+
+
+// Old schema ... before 14 may
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+
+
+
+// model User {
+//   id        String   @id @default(cuid())
+//   name      String?
+//   email     String   @unique
+//   password  String
+//   // role      Role     @default(USER)
+//   role      String   @default("USER") // <-- Add this line
+//   createdAt DateTime @default(now())
+// }
+
+// enum Role {
+//   ADMIN
+//   USER
+// }
+
+
+// model Collection {
+//   id       String  @id @default(cuid())
+//   name     String
+//   slug     String  @unique
+//   imageUrl String?
+//   dishes   Dish[]
+// }
+
+// model Restaurant {
+//   id             String         @id @default(cuid())
+//   name           String
+//   address        String
+//   imageUrl       String? 
+//   phoneNumber    String? 
+//   openTime       String? 
+//   closeTime      String? 
+//   ratings        Float?
+//   ratingCount    Int?
+//   dishes         Dish[]
+//   cuisines       Cuisine[]      @relation("RestaurantCuisines")
+//   menuCategories MenuCategory[]
+// }
+
+// model MenuCategory {
+//   id           String     @id @default(cuid())
+//   name         String
+//   count        Int
+//   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+//   restaurantId String
+//   items        MenuItem[]
+// }
+
+// model MenuItem {
+//   id         String       @id @default(cuid())
+//   name       String
+//   price      Float
+//   tag        String?
+//   category   MenuCategory @relation(fields: [categoryId], references: [id])
+//   categoryId String
+// }
+
+// model Dish {
+//   id           String     @id @default(cuid())
+//   name         String
+//   price        Int
+//   imageUrl     String?
+//   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+//   restaurantId String 
+//   collection   Collection @relation(fields: [collectionId], references: [id])
+//   collectionId String
+// }
+
+// model Cuisine {
+//   id          String       @id @default(cuid())
+//   name        String       @unique
+//   restaurants Restaurant[] @relation("RestaurantCuisines")
+// }

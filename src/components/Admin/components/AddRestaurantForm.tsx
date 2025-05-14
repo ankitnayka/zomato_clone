@@ -1,4 +1,4 @@
-// components/AddRestaurantForm.tsx
+// admin/components/AddRestaurantForm.tsx
 
 "use client";
 

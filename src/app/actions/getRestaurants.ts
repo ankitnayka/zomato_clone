@@ -14,20 +14,47 @@ export async function getAllRestaurants() {
   });
 }
 
+// export async function getRestaurants() {
+// //   return await prisma.restaurant.findMany({
+// //   include: {
+// //     dishes: true,
+// //     cuisines: true,
+// //     menuCategories: true,
+// //   },
+// // });
+
+//  return await prisma.restaurant.findUnique({
+//   where: {
+//     id: "RESTAURANT_ID_HERE", // Replace with actual restaurant ID
+//   },
+//   include: {
+//     menuCategories: true,
+//     dishes: {
+//       include: {
+//         collection: true,
+//         menuCategory: true,
+//       },
+//     },
+//   },
+// });
+
+// }
 
 
-export async function getRestaurants() {
-  // return await prisma.restaurant.findMany()
+
+export async function getRestaurantsWithMenuData() {
   return await prisma.restaurant.findMany({
-  include: {
-    dishes: true,
-    cuisines: true,
-    menuCategories: {
-      include: {
-        items: true, 
+    include: {
+      menuCategories: true,
+      dishes: {
+        include: {
+          collection: true,
+          menuCategory: true,
+        },
       },
     },
-  },
-});
-
+  });
 }
+
+
+

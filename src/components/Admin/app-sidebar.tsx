@@ -1,4 +1,4 @@
-import { Calendar, Home, Hotel, Inbox, LucideLayoutDashboard, MenuSquareIcon, Search, Settings } from "lucide-react"
+import { Calendar, Circle, Home, Hotel, Inbox, LucideLayoutDashboard, MenuSquareIcon, Search, Settings, SquareMenu } from "lucide-react"
 
 import {
   Sidebar,
@@ -29,20 +29,19 @@ const items = [
     icon: MenuSquareIcon,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Collection",
+    url: "/admin/add-collection",
+    icon: SquareMenu,
   },
   {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
+    title: "Add Dishes",
+    url: "/admin/add-dish",
+    icon: Circle,
   },
 ]
 
 export function AppSidebar() {
   return (
-    // <div className="max-w-7xl mx-auto ml-20">
     <Sidebar className="mt-12 ">
       <SidebarContent>
         <SidebarGroup>
@@ -64,6 +63,5 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
-    // </div>
   )
 }
