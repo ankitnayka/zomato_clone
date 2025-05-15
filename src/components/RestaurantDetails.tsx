@@ -97,7 +97,7 @@ export default function RestaurantDetails({ dish, restaurant }: any) {
               }}
             />
           )}
-          {activeTab === "Order Online" && <OrderOnline menuCategories={restaurant.menuCategories} />}
+          {activeTab === "Order Online" && <OrderOnline menuCategories={restaurant.menuCategories} dishes={restaurant.dishes} />}
           {activeTab === "Reviews" && <div>Reviews section</div>}
           {activeTab === "Photos" && <div>Photos section</div>}
           {activeTab === "Menu" && (

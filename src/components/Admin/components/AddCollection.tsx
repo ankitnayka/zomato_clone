@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 
 
@@ -67,8 +68,10 @@ export default function AddCollection() {
             });
             reset()
             router.refresh()
+            toast.success("Collection successfully added !!!")
         } catch (error) {
             console.error('Error during creating collection', error)
+            toast.error("Failed to create collection !!!")
         } finally {
             setLoading(false)
         }
@@ -77,7 +80,7 @@ export default function AddCollection() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-md space-y-4"
+            className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-md space-y-4 dark:bg-gray-800 dark:text-white"
         >
             <h2 className="text-xl font-semibold">Create New Collection</h2>
 
@@ -85,7 +88,7 @@ export default function AddCollection() {
                 <label className="block font-medium">Name</label>
                 <input
                     {...register('name', { required: 'Name is required' })}
-                    className="w-full px-3 py-2 border rounded-md"
+                    className="w-full px-3 py-2 border rounded-md "
                     disabled={loading}
                 />
                 {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}

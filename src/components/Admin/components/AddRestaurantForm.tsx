@@ -83,22 +83,24 @@ export default function AddRestaurantForm() {
 
       if (!res.ok) {
         const json = await res.json();
+        toast.error(json.message || "Failed to add resraurant!!!")
         throw new Error(json.message || "Failed to add restaurant.");
       }
-
+      
       reset(); // reset form
       router.refresh();
-    //   alert("Restaurant added!");
+      //   alert("Restaurant added!");
       toast.success(`${data.name} Restaurnat successfully Added !!!`)
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
+      toast.error(err.message || "Something went wrong!!!")
     }
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow space-y-5"
+      className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow space-y-5 dark:bg-gray-800 dark:text-white"
     >
       <h2 className="text-xl font-bold">Add New Restaurant</h2>
 

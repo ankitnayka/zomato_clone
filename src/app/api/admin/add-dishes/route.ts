@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
     console.log("Received:", { name, price, imageUrl, restaurantId, collectionId, menuCategoryId });
 
-    if (!name || !price || !restaurantId || !collectionId || !menuCategoryId) {
+    if (!name || !price || !restaurantId  || !menuCategoryId) {
       return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
     }
 
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
         price: Number(price),
         imageUrl: typeof imageUrl === "string" ? imageUrl : null,
         restaurantId,
-        collectionId,
+        collectionId:collectionId || null,
         menuCategoryId,
       },
     });

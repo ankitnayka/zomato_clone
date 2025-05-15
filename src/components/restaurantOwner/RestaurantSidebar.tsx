@@ -9,39 +9,42 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarProvider,
 } from "@/components/ui/sidebar"
 
 const items = [
   {
     title: "Home",
-    url: "/admin/dashboard",
+    url: "/restaurantOwner/dashboard",
     icon: LucideLayoutDashboard,
   },
   {
-    title: "Add Restaurant",
-    url: "/admin/add-restaurants",
+    title: "Restarant-Details",
+    url: "/restaurantOwner/edit-restaurantDetails",
     icon: Hotel,
   },
   {
     title: "Add Menu",
-    url: "/admin/add-menuCategory",
+    url: "/restaurantOwner/add-menuCategory",
     icon: MenuSquareIcon,
   },
   {
     title: "Collection",
-    url: "/admin/add-collection",
+    url: "/restaurantOwner/add-collection",
     icon: SquareMenu,
   },
   {
     title: "Add Dishes",
-    url: "/admin/add-dish",
+    url: "/restaurantOwner/add-dish",
     icon: Circle,
   },
 ]
 
-export function AppSidebar() {
+export function RestaurantSidebar() {
   return (
-    <Sidebar className="mt-12 ">
+    <SidebarProvider>
+
+    <Sidebar className="mt-16">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -62,5 +65,6 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
+    </SidebarProvider>
   )
 }

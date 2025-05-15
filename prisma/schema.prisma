@@ -21,13 +21,17 @@ enum Role {
   USER
 }
 
-model Collection {
-  id       String  @id @default(cuid())
-  name     String
-  slug     String  @unique
-  imageUrl String?
-  dishes   Dish[]
+model RestaurantOwner {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  restaurants Restaurant[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+
 
 model Restaurant {
   id             String         @id @default(cuid())
@@ -42,6 +46,8 @@ model Restaurant {
   dishes         Dish[]
   cuisines       Cuisine[]      @relation("RestaurantCuisines")
   menuCategories MenuCategory[]
+  owner        RestaurantOwner @relation(fields: [ownerId], references: [id])
+  ownerId      String
 }
 
 model MenuCategory {
@@ -60,7 +66,7 @@ model Dish {
   imageUrl       String?
 
   restaurant     Restaurant   @relation(fields: [restaurantId], references: [id])
-  restaurantId   String 
+  restaurantId   String
 
   collection     Collection   @relation(fields: [collectionId], references: [id])
   collectionId   String
@@ -68,7 +74,13 @@ model Dish {
   menuCategory   MenuCategory @relation(fields: [menuCategoryId], references: [id])
   menuCategoryId String
 }
-
+model Collection {
+  id       String  @id @default(cuid())
+  name     String
+  slug     String  @unique
+  imageUrl String?
+  dishes   Dish[]
+}
 model Cuisine {
   id          String       @id @default(cuid())
   name        String       @unique

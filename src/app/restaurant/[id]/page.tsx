@@ -9,7 +9,7 @@ export default async function RestaurantPage({ params }: { params: { id: string 
       dishes: true,
     },
   });
-
+  console.log("single restaurant",restaurant)
   if (!restaurant) return <div>Restaurant not found</div>;
 
   return <RestaurantDetails restaurant={restaurant} />;

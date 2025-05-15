@@ -2,8 +2,6 @@
 import RestaurantList from "@/components/RestaurantList";
 import { CollectionSection } from "@/components/CollectionSection";
 import FilterPills from "@/components/FilterPills";
-import ExploreOptions from "@/components/ExploreOptions";
-
 
 export default function Home() {
   return (
@@ -13,9 +11,7 @@ export default function Home() {
         <CollectionSection />
         <FilterPills />
         <RestaurantList />
-        {/* <ExploreOptions data={null} /> */}
       </div>
-
     </div>
   );
 }

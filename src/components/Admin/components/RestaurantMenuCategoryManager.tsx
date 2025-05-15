@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 type Restaurant = {
   id: string;
@@ -57,11 +58,14 @@ export default function RestaurantMenuCategoryManager({ restaurants }: Props) {
         const newCategory = await res.json();
         setMenuCategories(prev => [...prev, newCategory]);
         reset();
+        toast.success("Menu-Category created successfully !!!")
       } else {
         console.error("Failed to add menu category");
+        toast.error("Failed to create Menu-Category !!!")
       }
     } catch (error) {
       console.error("Error creating category", error);
+      toast.error("something went wrong !!!")
     } finally {
       setLoading(false);
     }

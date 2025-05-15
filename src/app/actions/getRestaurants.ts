@@ -57,4 +57,8 @@ export async function getRestaurantsWithMenuData() {
 }
 
 
+export async function getCollection() {
+  return await prisma.collection.findMany()
+}
+
 

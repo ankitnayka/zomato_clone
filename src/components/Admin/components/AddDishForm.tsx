@@ -2,6 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 
 type DishFormData = {
   name: string;
@@ -19,9 +20,18 @@ type Props = {
     collections: { id: string; name: string }[];
     menuCategories: { id: string; name: string }[];
   }[];
+
+  collection:{
+    id:string;
+    name:string;
+    slug:string;
+    imageUrl:string;
+    dishes:string[];
+  }[]
+
 };
 
-export default function AddDishForm({ restaurants }: Props) {
+export default function AddDishForm({ restaurants,collection }: Props) {
   const {
     register,
     handleSubmit,
@@ -29,6 +39,8 @@ export default function AddDishForm({ restaurants }: Props) {
     watch,
     formState: { errors }
   } = useForm<DishFormData>();
+
+  console.log("Collection Data",collection);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -69,24 +81,23 @@ export default function AddDishForm({ restaurants }: Props) {
       collectionId: data.collectionId,
       menuCategoryId: data.menuCategoryId
     };
-
     const res = await fetch("/api/admin/add-dishes", {
       method: "POST",
       body: JSON.stringify(payload)
     });
 
     if (res.ok) {
-      alert("Dish added!");
+      // alert("Dish added!");
+      toast.success(`${data.name} Dish added successfully`)
       reset();
     } else {
       alert("Failed to add dish");
     }
-
     setLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-md p-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-md p-4 dark:bg-gray-800 dark:text-white">
       <input {...register("name")} placeholder="Dish Name" required className="border p-2 w-full" />
       <input type="number" {...register("price")} placeholder="Price" required className="border p-2 w-full" />
       <input type="file" {...register("imageUrl")} required className="border p-2 w-full" />
@@ -99,16 +110,14 @@ export default function AddDishForm({ restaurants }: Props) {
           </option>
         ))}
       </select>
-
-      <select {...register("collectionId")} required className="border p-2 w-full">
+      <select {...register("collectionId")}  className="border p-2 w-full">
         <option value="">Select Collection</option>
-        {selectedRestaurant?.collections?.map((col) => (
+        {collection.map((col) => (
           <option key={col.id} value={col.id}>
             {col.name}
           </option>
         ))}
       </select>
-
       <select {...register("menuCategoryId")} required className="border p-2 w-full">
         <option value="">Select Menu Category</option>
         {selectedRestaurant?.menuCategories?.map((cat) => (
